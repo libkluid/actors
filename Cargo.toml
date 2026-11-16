@@ -1,0 +1,35 @@
+[workspace]
+resolver = "3"
+members = [
+    "crates/actor",
+    "crates/counter",
+    "crates/demo",
+]
+
+[workspace.package]
+version = "0.1.0"
+edition = "2024"
+rust-version = "1.85"
+license = "MIT OR Apache-2.0"
+publish = false
+
+[workspace.dependencies]
+# Internal crates.
+actor = { path = "crates/actor" }
+counter = { path = "crates/counter" }
+
+# Third-party crates.
+anyhow = "1"
+crossbeam-channel = "0.5"
+thiserror = "2"
+
+[workspace.lints.rust]
+unsafe_code = "forbid"
+
+# Restriction lints stay warnings in the workspace and are promoted with
+# `-D warnings` in CI. Tests opt out locally where unwrap is appropriate.
+[workspace.lints.clippy]
+expect_used = "warn"
+panic = "warn"
+todo = "warn"
+unwrap_used = "warn"
